@@ -33,36 +33,35 @@ export class DataInputPanel {
   render() {
     this.container.innerHTML = `
       <div class="data-input-panel">
-        <div class="panel-section">
-          <div class="section-title">📝 自定义数据</div>
+        <div class="panel-section custom-section">
+          <span class="section-title">📝 自定义:</span>
           <div class="input-group">
             <div class="input-row">
-              <label class="input-label">节点值数组:</label>
-              <input type="text" id="values-input" class="data-input" placeholder="例如: 3,2,0,-4" />
-              <span class="input-hint">用逗号分隔的整数</span>
+              <label class="input-label">数组</label>
+              <input type="text" id="values-input" class="data-input values-input" placeholder="3,2,0,-4" />
             </div>
             <div class="input-row">
-              <label class="input-label">环入口位置:</label>
+              <label class="input-label">环位置</label>
               <input type="number" id="pos-input" class="data-input pos-input" placeholder="-1" min="-1" />
-              <span class="input-hint">-1 表示无环，0 表示第一个节点</span>
             </div>
-            <button id="btn-apply" class="action-btn apply-btn">应用数据</button>
+            <button id="btn-apply" class="action-btn apply-btn">应用</button>
           </div>
         </div>
         
+        <div class="section-divider"></div>
+        
         <div class="panel-section">
-          <div class="section-title">📚 样例数据</div>
+          <span class="section-title">📚 样例:</span>
           <div class="examples-grid" id="examples-grid"></div>
         </div>
         
+        <div class="section-divider"></div>
+        
         <div class="panel-section">
-          <div class="section-title">🎲 随机生成</div>
+          <span class="section-title">🎲 随机:</span>
           <div class="random-controls">
-            <div class="random-row">
-              <label class="input-label">节点数量:</label>
-              <input type="number" id="random-count" class="data-input count-input" value="5" min="2" max="10" />
-            </div>
-            <button id="btn-random" class="action-btn random-btn">生成随机有环链表</button>
+            <input type="number" id="random-count" class="data-input count-input" value="5" min="2" max="10" title="节点数量" />
+            <button id="btn-random" class="action-btn random-btn">生成</button>
           </div>
         </div>
       </div>
@@ -79,9 +78,8 @@ export class DataInputPanel {
     if (!grid) return;
     
     grid.innerHTML = this.examples.map((ex, index) => `
-      <button class="example-btn" data-index="${index}" title="${ex.desc}">
+      <button class="example-btn" data-index="${index}" title="${ex.desc}: [${ex.values.join(',')}] pos=${ex.pos}">
         <span class="example-name">${ex.name}</span>
-        <span class="example-desc">[${ex.values.join(',')}] pos=${ex.pos}</span>
       </button>
     `).join('');
   }

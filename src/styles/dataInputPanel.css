@@ -1,57 +1,58 @@
-/* 数据输入面板样式 */
+/* 数据输入面板样式 - 紧凑单行布局 */
 .data-input-panel {
   background-color: #fafafa;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
 }
 
 .panel-section {
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.panel-section:last-child {
-  margin-bottom: 0;
+.panel-section.custom-section {
+  flex: 1;
+  min-width: 300px;
 }
 
 .section-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 10px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #e0e0e0;
+  color: #666;
+  white-space: nowrap;
 }
 
 /* 输入组 */
 .input-group {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
 }
 
 .input-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .input-label {
-  font-size: 12px;
-  color: #666;
-  min-width: 80px;
-  flex-shrink: 0;
+  font-size: 11px;
+  color: #888;
+  white-space: nowrap;
 }
 
 .data-input {
-  flex: 1;
-  min-width: 120px;
-  padding: 6px 10px;
+  padding: 4px 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 12px;
   font-family: 'Fira Code', monospace;
   transition: border-color 0.2s;
 }
@@ -59,39 +60,39 @@
 .data-input:focus {
   outline: none;
   border-color: #1a73e8;
-  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+}
+
+.data-input.values-input {
+  width: 120px;
 }
 
 .data-input.pos-input {
-  max-width: 80px;
-  flex: 0 0 80px;
+  width: 50px;
 }
 
 .data-input.count-input {
-  max-width: 80px;
-  flex: 0 0 80px;
+  width: 50px;
 }
 
 .input-hint {
-  font-size: 11px;
-  color: #999;
+  display: none;
 }
 
 /* 操作按钮 */
 .action-btn {
-  padding: 8px 16px;
+  padding: 4px 12px;
   border: none;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .apply-btn {
   background-color: #1a73e8;
   color: white;
-  margin-top: 4px;
 }
 
 .apply-btn:hover {
@@ -101,31 +102,26 @@
 .random-btn {
   background-color: #9c27b0;
   color: white;
-  margin-top: 4px;
 }
 
 .random-btn:hover {
   background-color: #7b1fa2;
 }
 
-/* 样例数据网格 */
+/* 样例数据 */
 .examples-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .example-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 8px 12px;
+  padding: 4px 10px;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
-  min-width: 140px;
+  font-size: 11px;
 }
 
 .example-btn:hover {
@@ -134,54 +130,45 @@
 }
 
 .example-name {
-  font-size: 12px;
   font-weight: 600;
   color: #333;
 }
 
 .example-desc {
-  font-size: 10px;
-  color: #666;
-  font-family: 'Fira Code', monospace;
-  margin-top: 2px;
+  display: none;
 }
 
 /* 随机控制 */
 .random-controls {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 6px;
 }
 
-.random-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* 分隔线 */
+.section-divider {
+  width: 1px;
+  height: 24px;
+  background-color: #ddd;
 }
 
 /* 响应式 */
-@media (max-width: 600px) {
-  .input-row {
+@media (max-width: 900px) {
+  .data-input-panel {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 10px;
   }
   
-  .data-input {
+  .panel-section {
     width: 100%;
-    max-width: none;
   }
   
-  .data-input.pos-input,
-  .data-input.count-input {
-    max-width: none;
-    flex: 1;
+  .panel-section.custom-section {
+    min-width: auto;
   }
   
-  .examples-grid {
-    flex-direction: column;
-  }
-  
-  .example-btn {
-    width: 100%;
+  .section-divider {
+    display: none;
   }
 }

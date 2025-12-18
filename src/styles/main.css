@@ -41,7 +41,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 10px 20px;
   background-color: var(--panel-bg);
   border-bottom: 1px solid var(--border-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -63,7 +63,7 @@ body {
 }
 
 .title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -87,9 +87,10 @@ body {
 .main-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px;
+  gap: 12px;
+  padding: 12px;
   flex: 1;
+  overflow: hidden;
 }
 
 /* Data Panel 样式 */
@@ -236,9 +237,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  min-height: 300px;
+  justify-content: flex-start;
+  padding: 10px;
+  min-height: 0;
+  overflow: auto;
 }
 
 .visualizer-svg {
@@ -334,14 +336,14 @@ body {
 }
 
 .phase-description {
-  margin-top: 16px;
-  padding: 12px 20px;
+  margin-top: 8px;
+  padding: 8px 16px;
   background-color: #f8f9fa;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
   text-align: center;
-  min-height: 44px;
+  min-height: 36px;
 }
 
 /* Control Panel 样式 */
@@ -349,8 +351,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 20px;
+  gap: 10px;
+  padding: 12px 20px;
   background-color: var(--panel-bg);
   border-top: 1px solid var(--border-color);
 }
@@ -638,30 +640,30 @@ body {
 /* 状态面板样式 */
 .status-panel {
   background-color: #fafafa;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid var(--border-color);
-  margin-top: 16px;
+  margin-top: 8px;
   overflow: hidden;
 }
 
 .status-panel .status-header {
-  padding: 10px 16px;
+  padding: 6px 12px;
   background-color: #f0f0f0;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   border-bottom: 1px solid var(--border-color);
 }
 
 .status-panel .status-content {
-  padding: 12px 16px;
+  padding: 8px 12px;
 }
 
 .status-panel .status-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 0;
-  font-size: 13px;
+  padding: 4px 0;
+  font-size: 12px;
   border-bottom: 1px dashed #e0e0e0;
 }
 
@@ -708,9 +710,9 @@ body {
 /* 算法原理提示面板 */
 .insight-panel {
   background-color: #e3f2fd;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #90caf9;
-  margin-top: 16px;
+  margin-top: 8px;
   overflow: hidden;
 }
 
@@ -718,7 +720,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 16px;
+  padding: 6px 12px;
   background-color: #bbdefb;
   cursor: pointer;
   user-select: none;
@@ -740,14 +742,14 @@ body {
 }
 
 .insight-panel .insight-content {
-  padding: 12px 16px;
+  padding: 8px 12px;
 }
 
 .insight-panel .insight-explanation {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.5;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .insight-panel .insight-formula {
