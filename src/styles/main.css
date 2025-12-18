@@ -1,0 +1,357 @@
+/* 基础样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #1a73e8;
+  --primary-hover: #1557b0;
+  --bg-color: #f5f5f5;
+  --panel-bg: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --border-color: #e0e0e0;
+  --highlight-bg: rgba(255, 235, 59, 0.3);
+  --slow-pointer-color: #4caf50;
+  --fast-pointer-color: #f44336;
+  --node-color: #2196f3;
+  --node-text-color: #ffffff;
+  --cycle-color: #ff9800;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header 样式 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: var(--panel-bg);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.title-link {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.2s;
+}
+
+.title-link:hover {
+  color: var(--primary-color);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.github-link {
+  color: var(--text-color);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.github-link:hover {
+  color: var(--primary-color);
+}
+
+.github-icon {
+  display: block;
+}
+
+
+/* Main Content 样式 */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  flex: 1;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.panel-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.step-info {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Code Panel 样式 */
+.code-panel {
+  background-color: var(--panel-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-container {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+}
+
+.code-container pre {
+  margin: 0;
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  background-color: #2d2d2d !important;
+}
+
+.code-container code {
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+}
+
+/* 代码行高亮 */
+.code-line {
+  display: block;
+  padding: 2px 8px;
+  margin: 0 -8px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.code-line.highlighted {
+  background-color: var(--highlight-bg);
+  border-left: 3px solid var(--primary-color);
+  margin-left: -11px;
+  padding-left: 8px;
+}
+
+/* 变量值显示 */
+.variable-value {
+  display: inline-block;
+  margin-left: 16px;
+  padding: 2px 8px;
+  background-color: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  border-radius: 4px;
+  font-size: 12px;
+  color: #4caf50;
+  font-family: 'Fira Code', monospace;
+}
+
+/* Visualizer Panel 样式 */
+.visualizer-panel {
+  background-color: var(--panel-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.visualizer-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 300px;
+}
+
+.visualizer-svg {
+  width: 100%;
+  height: 250px;
+}
+
+.phase-description {
+  margin-top: 16px;
+  padding: 12px 20px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  min-height: 44px;
+}
+
+/* Control Panel 样式 */
+.control-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background-color: var(--panel-bg);
+  border-top: 1px solid var(--border-color);
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--panel-bg);
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.control-btn:hover:not(:disabled) {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-btn.play-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.control-btn.play-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-icon {
+  font-size: 12px;
+}
+
+.btn-text {
+  font-weight: 500;
+}
+
+/* Floating Ball 样式 */
+.floating-ball {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 1000;
+}
+
+.ball-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #07c160, #06ad56);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ball-content:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.5);
+}
+
+.wechat-icon {
+  margin-bottom: 2px;
+}
+
+.ball-text {
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.qr-popup {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s;
+  width: 280px;
+}
+
+.floating-ball:hover .qr-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.qr-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.qr-prompt {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* 响应式布局 */
+@media (max-width: 900px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .header {
+    padding: 12px 16px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .control-panel {
+    flex-wrap: wrap;
+  }
+  
+  .control-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}

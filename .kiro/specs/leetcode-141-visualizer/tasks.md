@@ -1,0 +1,154 @@
+# Implementation Plan
+
+- [x] 1. 项目初始化与基础配置
+  - [x] 1.1 初始化 Vite 项目并配置基础依赖
+    - 创建 Vite vanilla-js 项目
+    - 安装 prismjs 用于语法高亮
+    - 安装 jest、@testing-library/dom、fast-check 用于测试
+    - 安装 eslint 用于代码检查
+    - 配置 package.json scripts
+    - _Requirements: 6.2, 6.3_
+  - [x] 1.2 配置 ESLint 和 Jest
+    - 创建 .eslintrc.js 配置文件
+    - 创建 jest.config.js 配置文件
+    - 确保 lint 和 test 命令可正常运行
+    - _Requirements: 6.2, 6.3_
+
+- [x] 2. 创建 GitHub Actions 部署工作流
+  - [x] 2.1 创建 deploy.yml 工作流文件
+    - 配置 push 到 main 分支触发
+    - 添加 lint 检查步骤
+    - 添加构建步骤
+    - 配置 GitHub Pages 部署
+    - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
+
+- [x] 3. 实现算法引擎核心逻辑
+  - [x] 3.1 实现链表数据结构和算法步骤生成
+    - 创建 src/scripts/algorithm.js
+    - 实现 AlgorithmEngine 类
+    - 实现 generateAllSteps() 方法，生成每一步的状态
+    - 每步包含：stepNumber, codeLine, slowPos, fastPos, variables, description
+    - _Requirements: 2.2, 2.3, 4.4_
+  - [x] 3.2 编写算法引擎属性测试
+    - **Property 1: Step-to-Line Mapping Consistency**
+    - **Validates: Requirements 2.2, 2.4**
+    - 验证所有步骤的 codeLine 在有效范围内
+  - [x] 3.3 编写算法引擎单元测试
+    - 测试示例1: [3,2,0,-4] pos=1 应检测到环
+    - 测试示例2: [1,2] pos=0 应检测到环
+    - 测试示例3: [1] pos=-1 应无环
+    - _Requirements: 2.2, 2.3_
+
+- [x] 4. 实现步骤管理器
+  - [x] 4.1 实现 StepManager 类
+    - 创建 src/scripts/stepManager.js
+    - 实现 nextStep(), prevStep(), goToStep() 方法
+    - 实现 play(), pause(), toggle() 方法
+    - 实现边界检查逻辑
+    - _Requirements: 3.1, 3.2, 3.3, 3.5, 3.6_
+  - [x] 4.2 编写步骤导航属性测试
+    - **Property 3: Step Navigation Correctness**
+    - **Validates: Requirements 3.1, 3.2, 3.5, 3.6**
+    - 验证导航始终在有效范围内
+  - [x] 4.3 编写播放/暂停属性测试
+    - **Property 4: Play/Pause Toggle Idempotence**
+    - **Validates: Requirements 3.3**
+    - 验证双次 toggle 返回原状态
+
+- [x] 5. Checkpoint - 确保核心逻辑测试通过
+  - Ensure all tests pass, ask the user if questions arise.
+
+- [x] 6. 实现页面结构和样式
+  - [x] 6.1 创建主 HTML 页面结构
+    - 创建 src/index.html
+    - 添加 Header 区域（标题链接、GitHub 图标）
+    - 添加代码面板区域
+    - 添加可视化区域
+    - 添加控制面板区域
+    - 添加悬浮球区域
+    - _Requirements: 1.1, 1.2, 1.3, 1.4_
+  - [x] 6.2 创建主样式文件
+    - 创建 src/styles/main.css
+    - 实现响应式布局
+    - 实现代码高亮行样式
+    - 实现变量值内联显示样式
+    - 实现悬浮球和弹窗样式
+    - _Requirements: 2.1, 2.2, 5.1, 5.2, 5.4_
+
+- [x] 7. 实现代码面板组件
+  - [x] 7.1 实现 CodePanel 类
+    - 创建 src/scripts/codePanel.js
+    - 集成 Prism.js 语法高亮
+    - 实现行高亮功能 highlightLine(lineNumber)
+    - 实现变量值显示功能 showVariables(variables)
+    - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
+  - [x] 7.2 编写变量显示属性测试
+    - **Property 2: Variable State Display Consistency**
+    - **Validates: Requirements 2.3**
+    - 验证变量值正确显示在对应行
+
+- [x] 8. 实现链表可视化组件
+  - [x] 8.1 实现 Visualizer 类
+    - 创建 src/scripts/visualizer.js
+    - 使用 SVG 绘制链表节点和箭头
+    - 实现快慢指针标记（不同颜色）
+    - 实现环形连接的可视化
+    - 实现步骤信息显示
+    - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
+  - [x] 8.2 编写指针可视化属性测试
+    - **Property 5: Pointer Visualization Distinction**
+    - **Validates: Requirements 4.2**
+    - 验证快慢指针有不同的视觉标记
+  - [x] 8.3 编写环形可视化属性测试
+    - **Property 6: Cycle Visualization Correctness**
+    - **Validates: Requirements 4.3**
+    - 验证有环时正确绘制环形连接
+  - [x] 8.4 编写步骤信息属性测试
+    - **Property 7: Step Information Completeness**
+    - **Validates: Requirements 4.4**
+    - 验证每步都显示步骤号、总数、描述
+
+- [x] 9. 实现控制面板组件
+  - [x] 9.1 实现 ControlPanel 类
+    - 创建 src/scripts/controlPanel.js
+    - 实现按钮渲染（带快捷键提示文字）
+    - 实现按钮点击事件绑定
+    - 实现键盘快捷键监听（←、→、Space）
+    - 实现按钮禁用状态管理
+    - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
+
+- [x] 10. 实现悬浮球组件
+  - [x] 10.1 下载并添加微信群二维码图片
+    - 下载图片到 src/assets/wechat-qr.png
+    - 确保图片保持原始比例
+    - _Requirements: 5.4_
+  - [x] 10.2 实现 FloatingBall 类
+    - 创建 src/scripts/floatingBall.js
+    - 实现悬浮球渲染（微信群图标 + "交流群"文字）
+    - 实现鼠标悬停显示二维码弹窗
+    - 实现提示文字显示
+    - 实现鼠标移出隐藏弹窗
+    - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
+
+- [x] 11. 整合所有组件
+  - [x] 11.1 创建主入口文件并整合所有组件
+    - 创建 src/scripts/main.js
+    - 初始化所有组件
+    - 连接 StepManager 与各 UI 组件
+    - 设置示例数据 [3,2,0,-4] pos=1
+    - 确保页面加载后正常运行
+    - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 3.4, 4.1, 5.1_
+
+- [x] 12. Checkpoint - 确保所有测试通过
+  - Ensure all tests pass, ask the user if questions arise.
+
+- [x] 13. 本地验证与部署准备
+  - [x] 13.1 本地运行完整验证
+    - 运行 npm run lint 确保无 linter 错误
+    - 运行 npm run build 确保无编译错误
+    - 运行 npm run test 确保所有测试通过
+    - 本地预览确保功能正常
+    - _Requirements: 6.2, 6.3_
+
+- [x] 14. Final Checkpoint - 确保所有测试通过
+  - Ensure all tests pass, ask the user if questions arise.
