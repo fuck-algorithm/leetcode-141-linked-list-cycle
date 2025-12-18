@@ -11,6 +11,7 @@ export class CodePanel {
     this.variables = [];
     this.codeLines = [];
     this.lineElements = [];
+    this.wrapperEl = null;
   }
 
   /**
@@ -27,31 +28,51 @@ export class CodePanel {
   render() {
     if (!this.container) return;
 
+    // 创建包装容器
+    this.wrapperEl = document.createElement('div');
+    this.wrapperEl.className = 'code-wrapper';
+
     // 创建带行号的代码显示
-    const html = this.codeLines.map((line, index) => {
+    this.codeLines.forEach((line, index) => {
       const lineNumber = index + 1;
-      const escapedLine = this.escapeHtml(line);
-      return `<span class="code-line" data-line="${lineNumber}">${escapedLine}</span>`;
-    }).join('\n');
-
-    this.container.innerHTML = html;
-    this.lineElements = this.container.querySelectorAll('.code-line');
-
-    // 应用 Prism 语法高亮
-    if (window.Prism) {
-      this.applySyntaxHighlighting();
-    }
-  }
-
-  /**
-   * 应用语法高亮
-   */
-  applySyntaxHighlighting() {
-    this.lineElements.forEach((el, index) => {
-      const code = this.codeLines[index];
-      const highlighted = window.Prism.highlight(code, window.Prism.languages.java, 'java');
-      el.innerHTML = highlighted;
+      
+      // 创建行容器
+      const lineContainer = document.createElement('div');
+      lineContainer.className = 'code-line-container';
+      lineContainer.dataset.line = lineNumber;
+      
+      // 创建行号
+      const lineNumEl = document.createElement('span');
+      lineNumEl.className = 'line-number';
+      lineNumEl.textContent = lineNumber;
+      
+      // 创建代码内容
+      const codeEl = document.createElement('span');
+      codeEl.className = 'code-content';
+      
+      // 应用语法高亮
+      if (window.Prism && window.Prism.languages.java) {
+        codeEl.innerHTML = window.Prism.highlight(line, window.Prism.languages.java, 'java');
+      } else {
+        codeEl.textContent = line;
+      }
+      
+      // 创建变量值容器
+      const varContainer = document.createElement('span');
+      varContainer.className = 'variable-container';
+      
+      lineContainer.appendChild(lineNumEl);
+      lineContainer.appendChild(codeEl);
+      lineContainer.appendChild(varContainer);
+      
+      this.wrapperEl.appendChild(lineContainer);
     });
+
+    // 清空并添加新内容
+    this.container.innerHTML = '';
+    this.container.appendChild(this.wrapperEl);
+    
+    this.lineElements = this.wrapperEl.querySelectorAll('.code-line-container');
   }
 
   /**
@@ -62,11 +83,6 @@ export class CodePanel {
     // 移除之前的高亮
     this.lineElements.forEach(el => {
       el.classList.remove('highlighted');
-      // 移除变量值显示
-      const varDisplay = el.querySelector('.variable-value');
-      if (varDisplay) {
-        varDisplay.remove();
-      }
     });
 
     this.currentLine = lineNumber;
@@ -92,8 +108,10 @@ export class CodePanel {
 
     // 先清除所有变量显示
     this.lineElements.forEach(el => {
-      const varDisplays = el.querySelectorAll('.variable-value');
-      varDisplays.forEach(v => v.remove());
+      const varContainer = el.querySelector('.variable-container');
+      if (varContainer) {
+        varContainer.innerHTML = '';
+      }
     });
 
     // 按行分组变量
@@ -110,13 +128,16 @@ export class CodePanel {
     // 显示新的变量值
     Object.entries(varsByLine).forEach(([line, vars]) => {
       const lineEl = this.lineElements[parseInt(line) - 1];
-      vars.forEach(variable => {
-        const varSpan = document.createElement('span');
-        varSpan.className = 'variable-value';
-        varSpan.textContent = `${variable.name} = ${variable.value}`;
-        varSpan.dataset.varName = variable.name;
-        lineEl.appendChild(varSpan);
-      });
+      const varContainer = lineEl.querySelector('.variable-container');
+      if (varContainer) {
+        vars.forEach(variable => {
+          const varSpan = document.createElement('span');
+          varSpan.className = 'variable-value';
+          varSpan.textContent = `${variable.name} = ${variable.value}`;
+          varSpan.dataset.varName = variable.name;
+          varContainer.appendChild(varSpan);
+        });
+      }
     });
   }
 

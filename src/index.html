@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>141. 环形链表 - 算法可视化</title>
   <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/dataInputPanel.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 <body>
@@ -27,6 +28,11 @@
 
     <!-- Main Content -->
     <main class="main-content">
+      <!-- Data Input Panel -->
+      <section class="data-panel">
+        <div id="data-input-container"></div>
+      </section>
+
       <!-- Code Panel -->
       <section class="code-panel">
         <div class="panel-header">
@@ -52,18 +58,31 @@
 
     <!-- Control Panel -->
     <footer class="control-panel">
-      <button id="btn-prev" class="control-btn" title="上一步">
-        <span class="btn-icon">◀</span>
-        <span class="btn-text">上一步 (←)</span>
-      </button>
-      <button id="btn-play" class="control-btn play-btn" title="播放/暂停">
-        <span class="btn-icon" id="play-icon">▶</span>
-        <span class="btn-text">播放 (Space)</span>
-      </button>
-      <button id="btn-next" class="control-btn" title="下一步">
-        <span class="btn-text">下一步 (→)</span>
-        <span class="btn-icon">▶</span>
-      </button>
+      <div class="control-buttons">
+        <button id="btn-reset" class="control-btn reset-btn" title="重置 (R)">
+          <span class="btn-icon">⟲</span>
+          <span class="btn-text">重置 (R)</span>
+        </button>
+        <button id="btn-prev" class="control-btn" title="上一步">
+          <span class="btn-icon">◀</span>
+          <span class="btn-text">上一步 (←)</span>
+        </button>
+        <button id="btn-play" class="control-btn play-btn" title="播放/暂停">
+          <span class="btn-icon" id="play-icon">▶</span>
+          <span class="btn-text">播放 (Space)</span>
+        </button>
+        <button id="btn-next" class="control-btn" title="下一步">
+          <span class="btn-text">下一步 (→)</span>
+          <span class="btn-icon">▶</span>
+        </button>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar">
+          <div class="progress-played" id="progress-played"></div>
+          <div class="progress-handle" id="progress-handle"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0 / 0</span>
+      </div>
     </footer>
 
     <!-- Floating Ball -->

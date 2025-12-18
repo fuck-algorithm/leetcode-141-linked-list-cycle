@@ -1,0 +1,187 @@
+/* 数据输入面板样式 */
+.data-input-panel {
+  background-color: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.panel-section {
+  margin-bottom: 16px;
+}
+
+.panel-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* 输入组 */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.input-label {
+  font-size: 12px;
+  color: #666;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.data-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Fira Code', monospace;
+  transition: border-color 0.2s;
+}
+
+.data-input:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+}
+
+.data-input.pos-input {
+  max-width: 80px;
+  flex: 0 0 80px;
+}
+
+.data-input.count-input {
+  max-width: 80px;
+  flex: 0 0 80px;
+}
+
+.input-hint {
+  font-size: 11px;
+  color: #999;
+}
+
+/* 操作按钮 */
+.action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.apply-btn {
+  background-color: #1a73e8;
+  color: white;
+  margin-top: 4px;
+}
+
+.apply-btn:hover {
+  background-color: #1557b0;
+}
+
+.random-btn {
+  background-color: #9c27b0;
+  color: white;
+  margin-top: 4px;
+}
+
+.random-btn:hover {
+  background-color: #7b1fa2;
+}
+
+/* 样例数据网格 */
+.examples-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.example-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 12px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 140px;
+}
+
+.example-btn:hover {
+  border-color: #1a73e8;
+  background-color: #e8f0fe;
+}
+
+.example-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+.example-desc {
+  font-size: 10px;
+  color: #666;
+  font-family: 'Fira Code', monospace;
+  margin-top: 2px;
+}
+
+/* 随机控制 */
+.random-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.random-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .input-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .data-input {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .data-input.pos-input,
+  .data-input.count-input {
+    max-width: none;
+    flex: 1;
+  }
+  
+  .examples-grid {
+    flex-direction: column;
+  }
+  
+  .example-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,146 @@
+# Implementation Plan
+
+- [x] 1. 实现环形分析器
+  - [x] 1.1 创建 CycleAnalyzer 类
+    - 创建 src/scripts/cycleAnalyzer.js
+    - 实现 analyze(values, cyclePos) 方法
+    - 计算 cycleLength、tailLength
+    - 分类 cycleNodes 和 tailNodes
+    - _Requirements: 6.1, 6.2, 6.3_
+  - [x] 1.2 编写环形分析属性测试
+    - **Property 7: Cycle Structure Calculation**
+    - **Validates: Requirements 6.1, 6.2, 6.3**
+    - 验证环长度和尾部长度计算正确
+
+- [x] 2. 实现轨迹管理器
+  - [x] 2.1 创建 TrailManager 类
+    - 创建 src/scripts/trailManager.js
+    - 实现 recordSlowVisit() 和 recordFastVisit() 方法
+    - 实现 getTrailIntensity() 方法计算轨迹强度
+    - 实现 reset() 方法
+    - _Requirements: 1.1, 1.2, 1.3, 1.4_
+  - [x] 2.2 编写轨迹完整性属性测试
+    - **Property 1: Pointer Trail Completeness**
+    - **Validates: Requirements 1.1, 1.2**
+    - 验证所有访问的节点都在轨迹中
+  - [x] 2.3 编写轨迹强度属性测试
+    - **Property 3: Trail Intensity Monotonicity**
+    - **Validates: Requirements 1.4**
+    - 验证重复访问节点的强度更高
+
+- [x] 3. 实现访问计数器
+  - [x] 3.1 创建 VisitCounter 类
+    - 创建 src/scripts/visitCounter.js
+    - 实现 incrementSlowVisit() 和 incrementFastVisit() 方法
+    - 实现 getSlowVisitCount() 和 getFastVisitCount() 方法
+    - 实现 isRevisited() 方法
+    - 实现 reset() 方法
+    - _Requirements: 2.1, 2.2, 2.3, 2.4_
+  - [x] 3.2 编写访问计数属性测试
+    - **Property 4: Visit Count Accuracy**
+    - **Validates: Requirements 2.1, 2.2**
+    - 验证访问次数统计准确
+  - [x] 3.3 编写重置属性测试
+    - **Property 5: Visit Count Reset Completeness**
+    - **Validates: Requirements 2.4**
+    - 验证重置后所有计数为零
+
+- [x] 4. 实现距离计算器
+  - [x] 4.1 创建 DistanceCalculator 类
+    - 创建 src/scripts/distanceCalculator.js
+    - 实现 calculateLinearDistance() 方法
+    - 实现 calculateCycleAwareDistance() 方法
+    - 处理环内距离计算
+    - _Requirements: 3.1, 3.3, 3.4_
+  - [x] 4.2 编写距离计算属性测试
+    - **Property 6: Distance Calculation Correctness**
+    - **Validates: Requirements 3.1, 3.4**
+    - 验证距离计算正确
+
+- [x] 5. Checkpoint - 确保核心逻辑测试通过
+  - Ensure all tests pass, ask the user if questions arise.
+
+- [x] 6. 实现算法原理提示面板
+  - [x] 6.1 创建 InsightPanel 类
+    - 创建 src/scripts/insightPanel.js
+    - 定义各阶段的原理解释内容
+    - 实现 updatePhase() 方法
+    - 实现可折叠面板功能
+    - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
+
+- [x] 7. 实现状态面板
+  - [x] 7.1 创建 StatusPanel 类
+    - 创建 src/scripts/statusPanel.js
+    - 显示 slow/fast 指针位置和值
+    - 显示循环条件表达式和结果
+    - 显示迭代次数
+    - 显示速度比
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 5.1, 5.3_
+  - [x] 7.2 编写状态面板属性测试
+    - **Property 8: Status Panel State Consistency**
+    - **Validates: Requirements 7.1, 7.2**
+    - 验证状态面板显示值与算法状态一致
+  - [x] 7.3 编写迭代计数属性测试
+    - **Property 9: Iteration Count Accuracy**
+    - **Validates: Requirements 7.4**
+    - 验证迭代次数准确
+  - [x] 7.4 编写速度比属性测试
+    - **Property 10: Speed Ratio Correctness**
+    - **Validates: Requirements 5.3**
+    - 验证速度比计算正确
+
+- [x] 8. 增强可视化组件
+  - [x] 8.1 集成轨迹管理器到 Visualizer
+    - 修改 src/scripts/visualizer.js
+    - 渲染慢指针轨迹（淡绿色）
+    - 渲染快指针轨迹（淡红色）
+    - 根据访问次数调整轨迹强度
+    - _Requirements: 1.1, 1.2, 1.3, 1.4_
+  - [x] 8.2 集成访问计数器到 Visualizer
+    - 在节点下方显示访问次数 (s:N f:M)
+    - 高亮重复访问的节点
+    - _Requirements: 2.1, 2.2, 2.3_
+  - [x] 8.3 集成距离指示器到 Visualizer
+    - 在信息面板显示指针距离
+    - 指针重合时特殊高亮
+    - _Requirements: 3.1, 3.3_
+  - [x] 8.4 集成环形分析器到 Visualizer
+    - 显示环长度和尾部长度
+    - 区分环内外节点的视觉样式
+    - _Requirements: 6.1, 6.2, 6.3, 6.4_
+  - [x] 8.5 编写颜色区分属性测试
+    - **Property 2: Trail Color Distinction**
+    - **Validates: Requirements 1.3**
+    - 验证快慢指针轨迹颜色不同
+
+- [x] 9. 更新样式文件
+  - [x] 9.1 添加增强组件样式
+    - 修改 src/styles/main.css
+    - 添加轨迹样式（透明度渐变）
+    - 添加访问计数标签样式
+    - 添加距离指示器样式
+    - 添加状态面板样式
+    - 添加原理提示面板样式（可折叠）
+    - 添加环形结构信息样式
+    - _Requirements: 1.3, 2.3, 3.3, 4.5, 6.4_
+
+- [x] 10. 整合所有增强组件
+  - [x] 10.1 更新主入口文件
+    - 修改 src/scripts/main.js
+    - 初始化所有新组件
+    - 连接组件与 StepManager
+    - 确保步骤变化时更新所有面板
+    - _Requirements: 全部_
+
+- [x] 11. Checkpoint - 确保所有测试通过
+  - Ensure all tests pass, ask the user if questions arise.
+
+- [x] 12. 本地验证
+  - [x] 12.1 运行完整验证
+    - 运行 npm run lint 确保无 linter 错误
+    - 运行 npm run test 确保所有测试通过
+    - 本地预览确保功能正常
+    - _Requirements: 全部_
+
+- [x] 13. Final Checkpoint - 确保所有测试通过
+  - Ensure all tests pass, ask the user if questions arise.

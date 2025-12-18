@@ -151,6 +151,29 @@ describe('Visualizer', () => {
     });
   });
 
+  /**
+   * **Feature: canvas-info-enhancement, Property 2: Trail Color Distinction**
+   * **Validates: Requirements 1.3**
+   */
+  describe('Property 2: Trail Color Distinction', () => {
+    it('should have distinct trail colors for slow and fast pointers', () => {
+      fc.assert(
+        fc.property(
+          fc.array(fc.integer({ min: -100, max: 100 }), { minLength: 3, maxLength: 10 }),
+          (values) => {
+            visualizer.initialize(values, -1);
+            
+            const slowColor = visualizer.trailManager.config.slowColor;
+            const fastColor = visualizer.trailManager.config.fastColor;
+            
+            return slowColor !== fastColor;
+          }
+        ),
+        { numRuns: 100 }
+      );
+    });
+  });
+
   // 单元测试
   describe('Unit Tests', () => {
     it('should initialize with nodes', () => {

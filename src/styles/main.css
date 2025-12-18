@@ -92,6 +92,11 @@ body {
   flex: 1;
 }
 
+/* Data Panel 样式 */
+.data-panel {
+  grid-column: 1 / -1;
+}
+
 .panel-header {
   display: flex;
   justify-content: space-between;
@@ -130,43 +135,90 @@ body {
 
 .code-container pre {
   margin: 0;
-  padding: 16px;
-  font-size: 13px;
-  line-height: 1.6;
-  background-color: #2d2d2d !important;
+  padding: 0;
+  background-color: #1e1e1e !important;
 }
 
 .code-container code {
-  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-}
-
-/* 代码行高亮 */
-.code-line {
   display: block;
-  padding: 2px 8px;
-  margin: 0 -8px;
-  border-radius: 3px;
-  position: relative;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-.code-line.highlighted {
-  background-color: var(--highlight-bg);
-  border-left: 3px solid var(--primary-color);
-  margin-left: -11px;
-  padding-left: 8px;
+/* 代码包装器 */
+.code-wrapper {
+  padding: 8px 0;
+}
+
+/* 代码行容器 */
+.code-line-container {
+  display: flex;
+  align-items: flex-start;
+  min-height: 21px;
+  padding: 1px 0;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s ease;
+}
+
+.code-line-container:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.code-line-container.highlighted {
+  background-color: rgba(255, 235, 59, 0.15);
+  border-left-color: var(--primary-color);
+}
+
+/* 行号 */
+.line-number {
+  flex-shrink: 0;
+  width: 40px;
+  padding-right: 12px;
+  text-align: right;
+  color: #858585;
+  font-size: 12px;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  user-select: none;
+  line-height: 21px;
+}
+
+.code-line-container.highlighted .line-number {
+  color: #d4d4d4;
+}
+
+/* 代码内容 */
+.code-content {
+  flex: 1;
+  white-space: pre;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 21px;
+  color: #d4d4d4;
+}
+
+/* 变量值容器 */
+.variable-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 12px;
+  flex-shrink: 0;
 }
 
 /* 变量值显示 */
 .variable-value {
-  display: inline-block;
-  margin-left: 16px;
+  display: inline-flex;
+  align-items: center;
   padding: 2px 8px;
-  background-color: rgba(76, 175, 80, 0.2);
+  background-color: rgba(76, 175, 80, 0.15);
   border: 1px solid rgba(76, 175, 80, 0.4);
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 11px;
   color: #4caf50;
-  font-family: 'Fira Code', monospace;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  white-space: nowrap;
+  line-height: 16px;
 }
 
 /* Visualizer Panel 样式 */
@@ -191,7 +243,94 @@ body {
 
 .visualizer-svg {
   width: 100%;
-  height: 250px;
+  height: 220px;
+}
+
+/* 可视化信息面板 */
+.visualizer-info-panel {
+  padding: 12px 16px;
+  background-color: #fafafa;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.visualizer-info-panel .info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.visualizer-info-panel .legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.visualizer-info-panel .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #666;
+}
+
+.visualizer-info-panel .legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.visualizer-info-panel .stats {
+  display: flex;
+  gap: 16px;
+}
+
+.visualizer-info-panel .stat-item {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: white;
+  border: 1px solid #e0e0e0;
+}
+
+.visualizer-info-panel .stat-item.slow-stat {
+  color: #4caf50;
+}
+
+.visualizer-info-panel .stat-item.fast-stat {
+  color: #f44336;
+}
+
+.visualizer-info-panel .stat-item strong {
+  font-weight: 600;
+}
+
+.visualizer-info-panel .algorithm-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.visualizer-info-panel .algorithm-status.detecting {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.visualizer-info-panel .algorithm-status.found {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.visualizer-info-panel .algorithm-status.not-found {
+  background-color: #ffebee;
+  color: #c62828;
 }
 
 .phase-description {
@@ -208,7 +347,7 @@ body {
 /* Control Panel 样式 */
 .control-panel {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 20px;
@@ -216,16 +355,23 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
 .control-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: 6px;
+  padding: 8px 16px;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: var(--panel-bg);
   color: var(--text-color);
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -249,6 +395,17 @@ body {
 
 .control-btn.play-btn:hover:not(:disabled) {
   background-color: var(--primary-hover);
+}
+
+.control-btn.reset-btn {
+  background-color: #ff9800;
+  color: white;
+  border-color: #ff9800;
+}
+
+.control-btn.reset-btn:hover:not(:disabled) {
+  background-color: #f57c00;
+  border-color: #f57c00;
 }
 
 .btn-icon {
@@ -333,6 +490,72 @@ body {
 }
 
 /* 响应式布局 */
+/* 进度条样式 */
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: none; /* 移除最大宽度限制，使进度条占满屏幕宽度 */
+  padding: 0 20px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  transition: height 0.15s ease;
+}
+
+.progress-bar:hover {
+  height: 10px;
+}
+
+.progress-played {
+  height: 100%;
+  background-color: var(--slow-pointer-color);
+  border-radius: 4px;
+  width: 0%;
+  transition: width 0.1s ease;
+}
+
+.progress-handle {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background-color: var(--slow-pointer-color);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.progress-handle:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.progress-handle:active,
+.progress-handle.dragging {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.progress-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 50px;
+  text-align: right;
+}
+
 @media (max-width: 900px) {
   .main-content {
     grid-template-columns: 1fr;
@@ -346,7 +569,7 @@ body {
     font-size: 18px;
   }
   
-  .control-panel {
+  .control-buttons {
     flex-wrap: wrap;
   }
   
@@ -354,4 +577,209 @@ body {
     padding: 10px 16px;
     font-size: 13px;
   }
+  
+  .progress-container {
+    max-width: 100%;
+  }
+}
+
+
+/* ========== 增强组件样式 ========== */
+
+/* 速度标签 */
+.speed-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+  background-color: #e0e0e0;
+  color: #666;
+  margin-left: 4px;
+}
+
+/* 距离指示器 */
+.visualizer-info-panel .stat-item.distance-stat {
+  color: #9c27b0;
+}
+
+.visualizer-info-panel .stat-item.distance-stat.highlight {
+  background-color: #f3e5f5;
+  border-color: #9c27b0;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* 环形结构信息面板 */
+.cycle-info-panel {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #fff3e0;
+  border-radius: 6px;
+  border: 1px solid #ffcc80;
+}
+
+.cycle-info-item {
+  font-size: 12px;
+  color: #e65100;
+}
+
+.cycle-info-item strong {
+  font-weight: 600;
+}
+
+/* 状态面板样式 */
+.status-panel {
+  background-color: #fafafa;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.status-panel .status-header {
+  padding: 10px 16px;
+  background-color: #f0f0f0;
+  font-weight: 600;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.status-panel .status-content {
+  padding: 12px 16px;
+}
+
+.status-panel .status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px dashed #e0e0e0;
+}
+
+.status-panel .status-item:last-child {
+  border-bottom: none;
+}
+
+.status-panel .status-label {
+  color: #666;
+  min-width: 80px;
+}
+
+.status-panel .status-label.slow-label {
+  color: var(--slow-pointer-color);
+}
+
+.status-panel .status-label.fast-label {
+  color: var(--fast-pointer-color);
+}
+
+.status-panel .status-value {
+  font-family: 'Fira Code', monospace;
+  color: #333;
+}
+
+.status-panel .status-value.condition-value {
+  color: #1976d2;
+}
+
+.status-panel .speed-badge {
+  margin-left: auto;
+}
+
+.status-panel .speed-badge.slow-speed {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: var(--slow-pointer-color);
+}
+
+.status-panel .speed-badge.fast-speed {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: var(--fast-pointer-color);
+}
+
+/* 算法原理提示面板 */
+.insight-panel {
+  background-color: #e3f2fd;
+  border-radius: 8px;
+  border: 1px solid #90caf9;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.insight-panel .insight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #bbdefb;
+  cursor: pointer;
+  user-select: none;
+}
+
+.insight-panel .insight-header:hover {
+  background-color: #90caf9;
+}
+
+.insight-panel .insight-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #1565c0;
+}
+
+.insight-panel .insight-toggle {
+  color: #1565c0;
+  font-size: 12px;
+}
+
+.insight-panel .insight-content {
+  padding: 12px 16px;
+}
+
+.insight-panel .insight-explanation {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.insight-panel .insight-formula {
+  display: block;
+  padding: 8px 12px;
+  background-color: #fff;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  color: #1565c0;
+}
+
+.insight-panel.collapsed .insight-content {
+  display: none;
+}
+
+/* 轨迹样式 - 通过 SVG 渲染 */
+.trail-slow {
+  stroke: rgba(76, 175, 80, 0.3);
+}
+
+.trail-fast {
+  stroke: rgba(244, 67, 54, 0.3);
+}
+
+/* 访问计数标签 */
+.visit-count-label {
+  font-size: 9px;
+  fill: #666;
+}
+
+/* 重复访问高亮 */
+.node-revisited {
+  filter: drop-shadow(0 0 4px rgba(255, 152, 0, 0.6));
 }
