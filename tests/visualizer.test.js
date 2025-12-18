@@ -174,6 +174,49 @@ describe('Visualizer', () => {
     });
   });
 
+  /**
+   * **Feature: leetcode-141-visualizer, Property 8: Node Spacing Minimum**
+   * **Validates: Requirements 4.6**
+   * 
+   * For any linked list visualization with cyclePos >= 0, the node spacing SHALL be
+   * at least 100px to ensure the cycle connection arrow is clearly visible.
+   */
+  describe('Property 8: Node Spacing Minimum', () => {
+    it('should have node spacing of at least 100px for cyclic linked lists', () => {
+      fc.assert(
+        fc.property(
+          fc.array(fc.integer({ min: -100, max: 100 }), { minLength: 2, maxLength: 10 }),
+          fc.integer({ min: 0, max: 9 }),
+          (values, pos) => {
+            const validPos = Math.min(pos, values.length - 1);
+            visualizer.initialize(values, validPos);
+            
+            // 验证节点间距至少为 100px
+            return visualizer.nodeSpacing >= 100;
+          }
+        ),
+        { numRuns: 100 }
+      );
+    });
+
+    it('should maintain minimum spacing for all linked lists', () => {
+      fc.assert(
+        fc.property(
+          fc.array(fc.integer({ min: -100, max: 100 }), { minLength: 1, maxLength: 15 }),
+          fc.integer({ min: -1, max: 14 }),
+          (values, pos) => {
+            const validPos = pos >= 0 ? Math.min(pos, values.length - 1) : -1;
+            visualizer.initialize(values, validPos);
+            
+            // 验证节点间距至少为 100px
+            return visualizer.nodeSpacing >= 100;
+          }
+        ),
+        { numRuns: 100 }
+      );
+    });
+  });
+
   // 单元测试
   describe('Unit Tests', () => {
     it('should initialize with nodes', () => {

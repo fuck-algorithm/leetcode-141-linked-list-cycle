@@ -37,6 +37,7 @@
 3. WHEN a variable value changes THEN the Visualizer SHALL display the variable's current value inline after the corresponding code line
 4. WHEN the algorithm step changes THEN the Visualizer SHALL update the highlighted line to match the current execution point
 5. WHEN displaying variable values THEN the Visualizer SHALL show values for slow pointer, fast pointer, and their positions
+6. WHEN generating algorithm steps THEN the AlgorithmEngine SHALL create fine-grained steps that include: (a) each condition check as a separate step, (b) each pointer movement as a separate step, (c) loop entry and exit as separate steps
 
 ### Requirement 3: 控制面板与键盘快捷键
 
@@ -62,6 +63,7 @@
 3. WHEN a cycle exists THEN the Visualizer SHALL visually indicate the cycle connection in the linked list
 4. WHEN displaying the visualization THEN the Visualizer SHALL show current step number, total steps, and algorithm phase description
 5. WHEN pointers move THEN the Visualizer SHALL animate the pointer transitions smoothly
+6. WHEN rendering a cyclic linked list THEN the Visualizer SHALL use increased node spacing (minimum 100px) to ensure clear visibility of the cycle connection arrow
 
 ### Requirement 5: 社区交流悬浮球
 

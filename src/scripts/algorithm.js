@@ -170,7 +170,7 @@ export class AlgorithmEngine {
 
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      // while 条件检查
+      // 步骤: while 条件检查 - slow != fast
       this.steps.push({
         stepNumber: stepNumber++,
         codeLine: CODE_LINES.WHILE_CHECK,
@@ -180,7 +180,7 @@ export class AlgorithmEngine {
           { name: 'slow', value: `节点(${this.values[slow]}) [索引:${slow}]`, line: 6 },
           { name: 'fast', value: `节点(${this.values[fast]}) [索引:${fast}]`, line: 7 }
         ],
-        description: `检查 slow != fast: ${slow} != ${fast}`,
+        description: `检查 while 条件: slow != fast → ${slow} != ${fast} = ${slow !== fast}`,
         hasCycle: null
       });
 
@@ -198,8 +198,21 @@ export class AlgorithmEngine {
         return;
       }
 
-      // 检查 fast 是否到达末尾
+      // 细粒度步骤: 检查 fast == null (第一部分)
       const fastNext = this.getNextIndex(fast);
+      this.steps.push({
+        stepNumber: stepNumber++,
+        codeLine: CODE_LINES.FAST_NULL_CHECK,
+        slowPos: slow,
+        fastPos: fast,
+        variables: [
+          { name: 'fast', value: `节点(${this.values[fast]}) [索引:${fast}]`, line: 9 }
+        ],
+        description: `检查 fast == null: fast = 节点(${this.values[fast]}) ≠ null`,
+        hasCycle: null
+      });
+
+      // 如果 fast.next 为 null，结束
       if (fastNext === -1) {
         this.steps.push({
           stepNumber: stepNumber++,
@@ -207,10 +220,9 @@ export class AlgorithmEngine {
           slowPos: slow,
           fastPos: fast,
           variables: [
-            { name: 'fast', value: `节点(${this.values[fast]})`, line: 9 },
             { name: 'fast.next', value: 'null', line: 9 }
           ],
-          description: 'fast.next 为 null，无环',
+          description: '检查 fast.next == null: fast.next = null ✓ 条件成立',
           hasCycle: null
         });
         this.steps.push({
@@ -219,13 +231,27 @@ export class AlgorithmEngine {
           slowPos: slow,
           fastPos: fast,
           variables: [],
-          description: '快指针到达末尾，返回 false',
+          description: '快指针的下一个节点为空，无环，返回 false',
           hasCycle: false
         });
         return;
       }
 
+      // 细粒度步骤: 检查 fast.next == null (第二部分)
       const fastNextNext = this.getNextIndex(fastNext);
+      this.steps.push({
+        stepNumber: stepNumber++,
+        codeLine: CODE_LINES.FAST_NULL_CHECK,
+        slowPos: slow,
+        fastPos: fast,
+        variables: [
+          { name: 'fast.next', value: `节点(${this.values[fastNext]}) [索引:${fastNext}]`, line: 9 }
+        ],
+        description: `检查 fast.next == null: fast.next = 节点(${this.values[fastNext]}) ≠ null`,
+        hasCycle: null
+      });
+
+      // 如果 fast.next.next 为 null，结束
       if (fastNextNext === -1) {
         this.steps.push({
           stepNumber: stepNumber++,
@@ -233,10 +259,9 @@ export class AlgorithmEngine {
           slowPos: slow,
           fastPos: fast,
           variables: [
-            { name: 'fast.next', value: `节点(${this.values[fastNext]})`, line: 9 },
             { name: 'fast.next.next', value: 'null', line: 9 }
           ],
-          description: 'fast.next.next 为 null，无环',
+          description: '检查 fast.next.next: fast.next.next = null ✓ 条件成立',
           hasCycle: null
         });
         this.steps.push({
@@ -245,13 +270,13 @@ export class AlgorithmEngine {
           slowPos: slow,
           fastPos: fast,
           variables: [],
-          description: '快指针到达末尾，返回 false',
+          description: '快指针无法再移动两步，无环，返回 false',
           hasCycle: false
         });
         return;
       }
 
-      // 移动指针
+      // 步骤: 慢指针移动
       const newSlow = this.getNextIndex(slow);
       this.steps.push({
         stepNumber: stepNumber++,
@@ -261,11 +286,12 @@ export class AlgorithmEngine {
         variables: [
           { name: 'slow', value: `节点(${this.values[newSlow]}) [索引:${newSlow}]`, line: 12 }
         ],
-        description: `慢指针移动: ${slow} -> ${newSlow}`,
+        description: `慢指针移动一步: slow = slow.next → ${slow} → ${newSlow}`,
         hasCycle: null
       });
       slow = newSlow;
 
+      // 步骤: 快指针移动
       this.steps.push({
         stepNumber: stepNumber++,
         codeLine: CODE_LINES.FAST_NEXT,
@@ -274,7 +300,7 @@ export class AlgorithmEngine {
         variables: [
           { name: 'fast', value: `节点(${this.values[fastNextNext]}) [索引:${fastNextNext}]`, line: 13 }
         ],
-        description: `快指针移动: ${fast} -> ${fastNextNext}`,
+        description: `快指针移动两步: fast = fast.next.next → ${fast} → ${fastNextNext}`,
         hasCycle: null
       });
       fast = fastNextNext;

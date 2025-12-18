@@ -152,3 +152,25 @@
 
 - [x] 14. Final Checkpoint - 确保所有测试通过
   - Ensure all tests pass, ask the user if questions arise.
+
+- [x] 15. 增强可视化效果和步骤划分
+  - [x] 15.1 增大环形链表节点间距
+    - 修改 src/scripts/visualizer.js 中的 nodeSpacing 从 80px 增加到 100px
+    - 确保环形连接箭头清晰可见
+    - _Requirements: 4.6_
+  - [x] 15.2 优化算法步骤细粒度划分
+    - 修改 src/scripts/algorithm.js 中的 generateAllSteps() 方法
+    - 将 fast null 检查拆分为两个独立步骤：检查 fast == null 和检查 fast.next == null
+    - 确保每次循环迭代至少包含：while 条件检查、null 检查、慢指针移动、快指针移动
+    - _Requirements: 2.6_
+  - [x] 15.3 编写节点间距属性测试
+    - **Property 8: Node Spacing Minimum**
+    - **Validates: Requirements 4.6**
+    - 验证环形链表节点间距至少为 100px
+  - [x] 15.4 编写细粒度步骤属性测试
+    - **Property 9: Fine-Grained Step Generation**
+    - **Validates: Requirements 2.6**
+    - 验证每次循环迭代至少生成 3 个独立步骤
+
+- [x] 16. Checkpoint - 确保所有测试通过
+  - Ensure all tests pass, ask the user if questions arise.

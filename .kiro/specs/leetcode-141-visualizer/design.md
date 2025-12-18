@@ -96,6 +96,15 @@ interface ListNode {
   x: number;
   y: number;
 }
+
+// 布局参数 - 增大节点间距以确保环形箭头清晰可见
+interface LayoutConfig {
+  nodeRadius: number;      // 节点半径: 25px
+  nodeSpacing: number;     // 节点间距: 100px (从 80px 增加)
+  startX: number;          // 起始 X 坐标: 60px
+  startY: number;          // 起始 Y 坐标: 80px
+  svgHeight: number;       // SVG 高度: 220px
+}
 ```
 
 ### 4. Control Panel Component
@@ -132,7 +141,7 @@ interface FloatingBallProps {
 
 ### 6. Algorithm Engine
 
-算法执行引擎，生成每一步的状态。
+算法执行引擎，生成每一步的状态。步骤生成需要细粒度划分，确保每个条件检查、指针移动、循环进入/退出都是独立的步骤。
 
 ```typescript
 interface AlgorithmStep {
@@ -143,6 +152,20 @@ interface AlgorithmStep {
   variables: VariableState[];
   description: string;
   hasCycle: boolean | null;  // null 表示还未确定
+  stepType: StepType;        // 步骤类型，用于细粒度分类
+}
+
+// 步骤类型枚举 - 用于细粒度步骤划分
+enum StepType {
+  METHOD_ENTRY = 'method_entry',           // 方法入口
+  CONDITION_CHECK = 'condition_check',     // 条件检查
+  VARIABLE_INIT = 'variable_init',         // 变量初始化
+  LOOP_ENTRY = 'loop_entry',               // 循环入口
+  LOOP_CONDITION = 'loop_condition',       // 循环条件检查
+  POINTER_MOVE_SLOW = 'pointer_move_slow', // 慢指针移动
+  POINTER_MOVE_FAST = 'pointer_move_fast', // 快指针移动
+  LOOP_EXIT = 'loop_exit',                 // 循环退出
+  RETURN_RESULT = 'return_result'          // 返回结果
 }
 
 interface AlgorithmEngine {
@@ -151,6 +174,18 @@ interface AlgorithmEngine {
   getStep(index: number): AlgorithmStep;
   getTotalSteps(): number;
 }
+```
+
+#### 细粒度步骤划分规则
+
+每次循环迭代应包含以下独立步骤：
+1. **while 条件检查** - 检查 slow != fast
+2. **fast null 检查 (第一部分)** - 检查 fast == null
+3. **fast.next null 检查 (第二部分)** - 检查 fast.next == null
+4. **慢指针移动** - slow = slow.next
+5. **快指针移动** - fast = fast.next.next
+
+这样可以让用户更清晰地理解算法的每一个执行细节。
 ```
 
 ### 7. Step Manager
@@ -288,6 +323,18 @@ Based on the prework analysis, the following correctness properties have been id
 - A non-empty phase description string
 
 **Validates: Requirements 4.4**
+
+### Property 8: Node Spacing Minimum
+
+*For any* linked list visualization with cyclePos >= 0, the node spacing SHALL be at least 100px to ensure the cycle connection arrow is clearly visible.
+
+**Validates: Requirements 4.6**
+
+### Property 9: Fine-Grained Step Generation
+
+*For any* linked list with at least 2 nodes, each loop iteration in the algorithm SHALL generate at least 3 separate steps: (1) loop condition check, (2) slow pointer movement, (3) fast pointer movement.
+
+**Validates: Requirements 2.6**
 
 ## Error Handling
 

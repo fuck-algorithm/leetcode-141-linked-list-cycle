@@ -36,9 +36,9 @@ export class Visualizer {
     this.cycleAnalyzer = new CycleAnalyzer();
     this.cycleInfo = null;
     
-    // 布局参数
+    // 布局参数 - 增大节点间距以确保环形箭头清晰可见
     this.nodeRadius = 25;
-    this.nodeSpacing = 80;
+    this.nodeSpacing = 100;  // 从 80px 增加到 100px，确保环形连接箭头清晰可见
     this.startX = 60;
     this.startY = 80;
     this.svgHeight = 220;
